@@ -1,0 +1,179 @@
+/* ============================================================
+   Pages — estilos específicos de páginas internas
+   ============================================================ */
+
+/* ── PAGE HEADER ── */
+.page-header {
+  background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 55%, var(--navy-light) 100%);
+  color: white;
+  padding: 64px 0 52px;
+  position: relative;
+  overflow: hidden;
+}
+.page-header::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  right: -5%;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  pointer-events: none;
+}
+.page-header::after {
+  content: '';
+  position: absolute;
+  bottom: -40%;
+  left: 8%;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: rgba(232,184,0,0.07);
+  pointer-events: none;
+}
+.page-header .container { position: relative; z-index: 1; }
+.page-header h1 {
+  font-family: 'Merriweather', serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 14px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+.page-header .page-subtitle {
+  font-size: 1.08rem;
+  opacity: 0.88;
+  max-width: 640px;
+  line-height: 1.65;
+}
+.page-header .page-badge {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--navy-dark);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 14px;
+  border-radius: 2px;
+  margin-bottom: 18px;
+}
+
+/* ── BREADCRUMB ── */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+.breadcrumb a { color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--gold); }
+.breadcrumb-sep { opacity: 0.4; }
+.breadcrumb span:last-child { color: var(--gold-light); }
+
+/* ── STATS ── */
+.stats-section {
+  background: var(--navy);
+  color: white;
+  padding: 64px 0;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  text-align: center;
+}
+.stat-item { padding: 20px 12px; }
+.stat-number {
+  font-family: 'Merriweather', serif;
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 10px;
+  display: block;
+}
+.stat-label {
+  font-size: 0.88rem;
+  opacity: 0.85;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+/* ── RAMO PAGE HERO ── */
+.ramo-hero { color: white; padding: 80px 0; }
+.ramo-hero.lobinhos-bg  { background: linear-gradient(135deg, #5c3d00, #a0690f, #e8b800); }
+.ramo-hero.escoteiros-bg{ background: linear-gradient(135deg, #0d3318, #1e6b35, #2a8a44); }
+.ramo-hero.senior-bg    { background: linear-gradient(135deg, #1a2f52, #2563a0, #3a7bc8); }
+.ramo-hero.pioneiros-bg { background: linear-gradient(135deg, #4a1020, #922540, #c83a5c); }
+.ramo-age-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.5);
+  color: white;
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 6px 20px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.ramo-hero h1 { font-family: 'Merriweather', serif; font-size: 3rem; font-weight: 900; margin-bottom: 16px; }
+.ramo-hero p { font-size: 1.1rem; max-width: 620px; line-height: 1.65; opacity: 0.9; margin-bottom: 32px; }
+.ramo-hero .ramo-hero-icon { font-size: 5rem; margin-bottom: 16px; }
+
+/* ── STEPS (inscrição) ── */
+.steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.step-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px 20px;
+  text-align: center;
+  position: relative;
+}
+.step-number {
+  width: 52px;
+  height: 52px;
+  background: var(--navy);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Merriweather', serif;
+  font-size: 1.3rem;
+  font-weight: 900;
+  margin: 0 auto 16px;
+}
+.step-card h4 { font-family: 'Merriweather', serif; color: var(--navy); font-size: 0.98rem; margin-bottom: 10px; }
+.step-card p { font-size: 0.86rem; color: var(--gray); line-height: 1.6; }
+
+/* ── PIX / BANCO ── */
+.payment-block {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+  text-align: center;
+}
+.payment-block .pix-icon { font-size: 3rem; margin-bottom: 12px; }
+.payment-block h3 { font-family: 'Merriweather', serif; color: var(--navy); margin-bottom: 8px; }
+.payment-block .pix-key {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy);
+  background: var(--gray-light);
+  padding: 12px 24px;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 12px 0;
+  letter-spacing: 0.04em;
+  word-break: break-all;
+}
+.payment-block p { font-size: 0.88rem; color: var(--gray); }

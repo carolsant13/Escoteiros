@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fale Conosco | 71º GE Minuano</title>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner" id="topnav-inner">
+    <div class="has-dropdown"><a href="quem-somos.html">Quem somos</a><div class="dropdown"><a href="quem-somos.html#escoteiros-brasil">Escoteiros do Brasil</a><a href="quem-somos.html#nossa-missao">Nossa Missão</a><a href="quem-somos.html#nosso-patrono">Nosso Patrono</a><a href="quem-somos.html#nossa-sede">Nossa Sede</a></div></div>
+    <div class="has-dropdown"><a href="escotismo.html">Escotismo</a><div class="dropdown"><a href="escotismo.html#principios">Princípios</a><a href="escotismo.html#metodos">Métodos</a><a href="escotismo.html#lema">Lema</a><a href="escotismo.html#ramos">Ramos</a><a href="escotismo.html#modalidades">Modalidades</a><a href="escotismo.html#especialidades">Especialidades</a><a href="inscricao.html">Como me inscrever?</a></div></div>
+    <div class="has-dropdown"><a href="#">Ramos</a><div class="dropdown"><a href="ramos/lobinhos.html">Lobinhos</a><a href="ramos/escoteiros.html">Escoteiros</a><a href="ramos/senior.html">Sênior</a><a href="ramos/pioneiros.html">Pioneiros</a></div></div>
+    <div class="has-dropdown"><a href="atividades.html">Nossas Atividades</a><div class="dropdown"><a href="atividades.html#calendario">Calendário</a><a href="atividades.html#acampamentos">Acampamentos</a><a href="atividades.html#eventos">Eventos</a><a href="galeria.html">Galeria</a></div></div>
+    <a href="documentos.html">Documentos</a><a href="empresas-amigas.html">Empresas Amigas</a><a href="doe-agora.html">Doe Agora</a><a href="area-restrita.html" class="area-restrita">|Área Restrita|</a>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo-block"><div class="logo-circle"><img src="assets/img/logo.jpg" alt="Logo" class="logo-img"></div><div class="logo-text"><h1>71º Grupo de Escoteiros Minuano</h1><p>Av. Waldemar Tietz, 1154 — São Paulo – SP &nbsp;|&nbsp; Fundado em 31/05/1981</p></div></a>
+    <div class="header-ctas">
+      <a href="inscricao.html" class="header-cta"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="40" cy="22" r="12" fill="none" stroke="#1e6b35" stroke-width="4"/><path d="M20 65 C20 50 60 50 60 65" fill="none" stroke="#1e6b35" stroke-width="4" stroke-linecap="round"/></svg>Seja Escoteiro</a>
+      <a href="atividades.html" class="header-cta"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M15 55 L15 35 L40 20 L65 35 L65 55" fill="none" stroke="#1e6b35" stroke-width="4" stroke-linejoin="round"/></svg>Nossas Atividades</a>
+      <a href="doe-agora.html" class="header-cta"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="56" cy="44" r="16" fill="none" stroke="#e8b800" stroke-width="4"/><path d="M52 37 L52 51 M45 44 L59 44" stroke="#e8b800" stroke-width="3" stroke-linecap="round"/></svg>Doe Agora</a>
+    </div>
+  </div>
+</header>
+
+<div class="page-header">
+  <div class="container">
+    <nav class="breadcrumb"><a href="index.html">Início</a><span class="breadcrumb-sep">›</span><span>Fale Conosco</span></nav>
+    <span class="page-badge">Entre em Contato</span>
+    <h1>Fale Conosco</h1>
+    <p class="page-subtitle">Tem dúvidas, sugestões ou quer visitar nossa sede? Entre em contato — será um prazer atendê-lo!</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="two-col">
+      <div>
+        <h2 class="section-title" style="text-align:left; margin-bottom:16px;">Envie sua Mensagem</h2>
+        <div class="section-rule" style="margin-left:0;"></div>
+        <form data-validate>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="nome">Nome completo *</label>
+              <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+              <span class="form-error-msg">Por favor, informe seu nome.</span>
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail *</label>
+              <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+              <span class="form-error-msg">Por favor, informe um e-mail válido.</span>
+            </div>
+            <div class="form-group">
+              <label for="telefone">Telefone / WhatsApp</label>
+              <input type="tel" id="telefone" name="telefone" placeholder="(11) 9 0000-0000">
+            </div>
+            <div class="form-group">
+              <label for="assunto">Assunto *</label>
+              <select id="assunto" name="assunto" required>
+                <option value="">Selecione…</option>
+                <option>Inscrição / Matrícula</option>
+                <option>Informações sobre o grupo</option>
+                <option>Doação / Parceria</option>
+                <option>Imprensa / Mídia</option>
+                <option>Outro</option>
+              </select>
+              <span class="form-error-msg">Selecione um assunto.</span>
+            </div>
+            <div class="form-group full-width">
+              <label for="mensagem">Mensagem *</label>
+              <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem aqui…" required></textarea>
+              <span class="form-error-msg">Por favor, escreva sua mensagem.</span>
+            </div>
+          </div>
+          <div style="margin-top:24px;">
+            <button type="submit" class="btn-gold" style="width:100%;">Enviar Mensagem</button>
+          </div>
+        </form>
+      </div>
+
+      <div>
+        <h2 class="section-title" style="text-align:left; margin-bottom:16px;">Onde Estamos</h2>
+        <div class="section-rule" style="margin-left:0;"></div>
+        <div style="display:grid; gap:16px;">
+          <div class="info-box">
+            <h4>📍 Endereço</h4>
+            <p>Av. Waldemar Tietz, 1154<br>Conj. Hab. Padre José de Anchieta<br>São Paulo – SP, CEP 05052-000</p>
+          </div>
+          <div class="info-box">
+            <h4>🕐 Horários de Atendimento</h4>
+            <p>Sábados: 8h às 17h (durante reuniões)<br>E-mail: respondemos em até 48h úteis</p>
+          </div>
+          <div class="info-box">
+            <h4>📞 Contatos</h4>
+            <p>E-mail: contato@71minuano.org.br<br>WhatsApp: (11) 9 0000-0000<br>Instagram: @71geminuano</p>
+          </div>
+          <div class="info-box">
+            <h4>🚌 Como Chegar</h4>
+            <p>Próximo à estação Pirituba — CPTM Linha 7-Rubi. Ônibus: linhas que passam pela Av. Waldemar Tietz. Há estacionamento nas proximidades.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section-alt" id="faq">
+  <div class="container">
+    <h2 class="section-title reveal">Dúvidas Frequentes</h2>
+    <div class="section-rule"></div>
+    <div class="accordion reveal" style="max-width:800px; margin:0 auto;">
+      <div class="accordion-item">
+        <button class="accordion-btn">Como faço para inscrever meu filho(a)? <span class="accordion-icon">+</span></button>
+        <div class="accordion-body"><p>O processo de inscrição é simples. Primeiro, entre em contato pelo formulário ou WhatsApp. Depois, agende uma visita à sede para conhecer o grupo e participar de uma reunião experimental gratuita. Após a visita, se houver interesse, realizamos a matrícula com os documentos necessários.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-btn">Qual é o custo mensal para participar? <span class="accordion-icon">+</span></button>
+        <div class="accordion-body"><p>O grupo cobra uma mensalidade que cobre material, atividades regulares e uma parte do fundo para acampamentos. Os valores são definidos anualmente e são acessíveis. Consulte-nos para saber os valores atuais. Realizamos eventos para arrecadação quando necessário.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-btn">Meu filho(a) pode participar sem experiência prévia? <span class="accordion-icon">+</span></button>
+        <div class="accordion-body"><p>Absolutamente! O escotismo foi feito para receber jovens sem nenhuma experiência anterior. O programa é progressivo: começamos do básico e avançamos gradualmente. Cada jovem tem seu ritmo respeitado.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-btn">Com que frequência são as reuniões? <span class="accordion-icon">+</span></button>
+        <div class="accordion-body"><p>As reuniões semanais acontecem todo sábado, com horários que variam por ramo (entre 8h e 17h). Além das reuniões, há acampamentos mensais ou bimestrais e eventos especiais ao longo do ano.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-btn">Adultos podem se tornar voluntários? <span class="accordion-icon">+</span></button>
+        <div class="accordion-body"><p>Sim! O grupo precisa de adultos voluntários para atuar como chefes e assistentes. Oferecemos toda a formação necessária por meio da UEB. Se você tem interesse em educação não-formal e amor pelos jovens, entre em contato!</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-btn">Há atividades para famílias? <span class="accordion-icon">+</span></button>
+        <div class="accordion-body"><p>Sim! Algumas atividades são abertas para as famílias, como a Festa de Encerramento do Ano e alguns eventos especiais. Além disso, os pais são sempre bem-vindos para visitar as reuniões e conversar com os chefes.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div><h4>71º Grupo de Escoteiros Minuano</h4><address>Av. Waldemar Tietz, 1154<br>São Paulo – SP</address></div>
+    <div><h4>Links Rápidos</h4><ul><li><a href="quem-somos.html">Quem Somos</a></li><li><a href="atividades.html">Nossas Atividades</a></li><li><a href="galeria.html">Galeria</a></li><li><a href="inscricao.html">Inscreva-se</a></li></ul></div>
+    <div><h4>Contato</h4><ul><li><a href="contato.html">📩 Fale Conosco</a></li><li><a href="area-restrita.html">📋 Área Restrita</a></li><li><a href="doe-agora.html">💛 Doe Agora</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">© 2025 71º Grupo de Escoteiros Minuano — Todos os direitos reservados.</div>
+</footer>
+
+<button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo">↑</button>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
