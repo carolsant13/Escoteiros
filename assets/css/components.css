@@ -41,20 +41,19 @@
 }
 
 .ramo-icon {
-  width: 80px;
-  height: 80px;
+  width: 110px;
+  height: 110px;
   margin: 0 auto 16px;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.2rem;
 }
 
-.ramo-lobinhos .ramo-icon  { background: #fff3cd; }
-.ramo-escoteiros .ramo-icon { background: #d4edda; }
-.ramo-senior .ramo-icon    { background: #cce5ff; }
-.ramo-pioneiros .ramo-icon  { background: #f8d7da; }
+.ramo-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 
 .ramo-card h3 {
   font-family: 'Merriweather', serif;
@@ -816,6 +815,12 @@
 .event-tag.evento      { background: #fff3cd; color: #856404; }
 .event-tag.curso       { background: #f8d7da; color: #721c24; }
 .event-tag.servico     { background: #e2d9f3; color: #4a2c91; }
+
+/* ── UTILITY GRIDS (replaces inline styles) ── */
+.payment-grid    { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.methods-grid    { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
+.methods-grid-full { grid-column: span 2; }
+.mini-grid-2     { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
 
 /* ── SECTION VARIANTS ── */
 .section-alt { background: var(--gray-light); }
