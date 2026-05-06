@@ -117,13 +117,13 @@ header {
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
   flex-shrink: 0;
   overflow: hidden;
+  background: white;
 }
 
 .logo-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
+  object-fit: contain;
 }
 
 .logo-text h1 {
@@ -372,6 +372,26 @@ footer ul li a:hover {
   font-size: 0.8rem;
   opacity: 0.5;
   text-align: center;
+}
+
+/* ── LOGO NO TOPNAV ── */
+.topnav-logo {
+  display: flex;
+  align-items: center;
+  padding: 4px 14px 4px 0;
+  text-decoration: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+}
+
+.topnav-logo img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  object-fit: contain;
+  background: white;
+  display: block;
 }
 
 /* ── MENU MOBILE (HAMBURGER) ── */
