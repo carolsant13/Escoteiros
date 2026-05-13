@@ -1,0 +1,203 @@
+/* ============================================================
+   login.css — Área Restrita | 71º Grupo Escoteiros Minuano
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --verde:        #1e5c2e;
+  --verde-escuro: #163f20;
+  --verde-claro:  #2d7a40;
+  --amarelo:      #f5c200;
+  --amarelo-hover:#e0af00;
+  --branco:       #ffffff;
+  --cinza-claro:  #f4f4f2;
+  --cinza-texto:  #444444;
+}
+
+/* ── Body ── */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Source Sans 3', sans-serif;
+  background-color: var(--verde-escuro);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 40px,
+    rgba(255, 255, 255, 0.03) 40px,
+    rgba(255, 255, 255, 0.03) 41px
+  );
+}
+
+/* ── Topo ── */
+.topo {
+  background: var(--verde-escuro);
+  border-bottom: 3px solid var(--amarelo);
+  padding: 10px 32px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.topo-texto h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--branco);
+  line-height: 1.2;
+}
+
+.topo-texto p {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ── Área central ── */
+.pagina {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+}
+
+/* ── Card ── */
+.card {
+  background: var(--branco);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  width: 100%;
+  max-width: 420px;
+  overflow: hidden;
+  animation: surgir 0.4s ease both;
+}
+
+@keyframes surgir {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.card-cabecalho {
+  background: var(--verde);
+  padding: 28px 32px 24px;
+  text-align: center;
+  border-bottom: 4px solid var(--amarelo);
+}
+
+.card-cabecalho .icone {
+  font-size: 2.4rem;
+  margin-bottom: 8px;
+}
+
+.card-cabecalho h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: var(--branco);
+  margin-bottom: 4px;
+}
+
+.card-cabecalho p {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.card-corpo {
+  padding: 28px 32px 32px;
+}
+
+/* ── Alertas ── */
+.alerta {
+  background: #fff3cd;
+  border-left: 4px solid var(--amarelo);
+  color: #6b4f00;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  margin-bottom: 20px;
+}
+
+.alerta.erro {
+  background: #fde8e8;
+  border-color: #c0392b;
+  color: #7b1a1a;
+}
+
+/* ── Campos ── */
+.campo {
+  margin-bottom: 18px;
+}
+
+.campo label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--verde-escuro);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.campo input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #d0d0c8;
+  border-radius: 7px;
+  font-size: 0.97rem;
+  font-family: 'Source Sans 3', sans-serif;
+  color: var(--cinza-texto);
+  background: var(--cinza-claro);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.campo input:focus {
+  border-color: var(--verde-claro);
+  box-shadow: 0 0 0 3px rgba(45, 122, 64, 0.15);
+  background: var(--branco);
+}
+
+/* ── Botão entrar ── */
+.btn-entrar {
+  width: 100%;
+  padding: 13px;
+  background: var(--amarelo);
+  color: var(--verde-escuro);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: background 0.2s, transform 0.1s;
+  margin-top: 6px;
+}
+
+.btn-entrar:hover  { background: var(--amarelo-hover); }
+.btn-entrar:active { transform: scale(0.98); }
+
+/* ── Link voltar ── */
+.voltar {
+  display: block;
+  margin-top: 18px;
+  font-size: 0.82rem;
+  color: var(--verde-claro);
+  text-decoration: none;
+  text-align: center;
+}
+
+.voltar:hover { text-decoration: underline; }
+
+/* ── Rodapé ── */
+.rodape {
+  text-align: center;
+  padding: 14px;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.35);
+}
