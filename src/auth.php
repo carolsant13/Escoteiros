@@ -14,7 +14,7 @@ if (session_status() === PHP_SESSION_NONE) {
 // -------------------------------------------------------
 function exigirLogin(): void {
     if (empty($_SESSION['usuario_id'])) {
-        header('Location: /login.php');
+    header('Location: login.php');
         exit;
     }
 }
@@ -22,7 +22,7 @@ function exigirLogin(): void {
 // -------------------------------------------------------
 // Exige perfil admin.
 // Editor e visualizador são barrados por enquanto.
-// -------------------------------------------------------
+
 function exigirAdmin(): void {
     exigirLogin();
     if ($_SESSION['perfil'] !== 'admin') {
@@ -31,11 +31,11 @@ function exigirAdmin(): void {
     }
 }
 
-// -------------------------------------------------------
+
 // Tenta logar: busca pelo e-mail, verifica senha e ativo.
 // Atualiza o campo ultimo_login na tabela usuarios.
 // Retorna array com dados ou false.
-// -------------------------------------------------------
+
 function tentarLogin(string $email, string $senha): array|false {
     $db = getDB();
 
@@ -49,6 +49,7 @@ function tentarLogin(string $email, string $senha): array|false {
     $stmt->execute([':email' => $email]);
     $usuario = $stmt->fetch();
 
+ 
     if ($usuario && password_verify($senha, $usuario['senha'])) {
         // Atualiza o último login
         $db->prepare("
@@ -85,7 +86,7 @@ function fazerLogout(): void {
             $p['path'], $p['domain'], $p['secure'], $p['httponly']);
     }
     session_destroy();
-    header('Location: /login.php');
+   header('Location: login.php');
     exit;
 }
 
