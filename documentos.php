@@ -103,7 +103,7 @@ $isAdmin = isset($_SESSION['usuario_id']) && ($_SESSION['perfil'] ?? '') === 'ad
         </div>
       </div>
       <a href="documentos.php" class="active">Documentos</a>
-      <a href="area-restrita.php" class="area-restrita">|Área Restrita|</a>
+      <a href="login.php" class="area-restrita">|Área Restrita|</a>
       <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
