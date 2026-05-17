@@ -1,0 +1,191 @@
+/* ============================================================
+   dashboard.css — Área Restrita | 71º Grupo Escoteiros Minuano
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --verde:        #1e5c2e;
+  --verde-escuro: #163f20;
+  --verde-claro:  #2d7a40;
+  --amarelo:      #f5c200;
+  --amarelo-hover:#e0af00;
+  --branco:       #ffffff;
+  --cinza-claro:  #f4f4f2;
+  --cinza-texto:  #444444;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Source Sans 3', sans-serif;
+  background-color: var(--cinza-claro);
+}
+
+/* ── Topo ── */
+.topo {
+  background: var(--verde-escuro);
+  border-bottom: 3px solid var(--amarelo);
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.topo-texto h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--branco);
+  line-height: 1.2;
+}
+
+.topo-texto p {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.topo-direita {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.usuario-info {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.85);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge-perfil {
+  background: var(--amarelo);
+  color: var(--verde-escuro);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.btn-sair {
+  background: transparent;
+  border: 1.5px solid rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.85);
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.btn-sair:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.7);
+}
+
+/* ── Conteúdo ── */
+.pagina {
+  flex: 1;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  width: 100%;
+}
+
+.boas-vindas {
+  margin-bottom: 36px;
+}
+
+.boas-vindas h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--verde-escuro);
+  margin-bottom: 6px;
+}
+
+.boas-vindas p {
+  color: var(--cinza-texto);
+  font-size: 1rem;
+}
+
+/* ── Cards ── */
+.cards-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.card-acao {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--branco);
+  border-radius: 12px;
+  padding: 24px 28px;
+  text-decoration: none;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  border-left: 5px solid var(--verde);
+  transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+}
+
+.card-acao:hover {
+  transform: translateX(4px);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+  border-color: var(--amarelo);
+}
+
+.card-icone {
+  font-size: 2.2rem;
+  flex-shrink: 0;
+}
+
+.card-info {
+  flex: 1;
+}
+
+.card-info h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--verde-escuro);
+  margin-bottom: 4px;
+}
+
+.card-info p {
+  font-size: 0.88rem;
+  color: #777;
+}
+
+.card-seta {
+  font-size: 1.4rem;
+  color: var(--verde-claro);
+  flex-shrink: 0;
+  transition: transform 0.18s;
+}
+
+.card-acao:hover .card-seta {
+  transform: translateX(4px);
+}
+
+/* ── Voltar ── */
+.voltar {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: var(--verde-claro);
+  text-decoration: none;
+}
+
+.voltar:hover { text-decoration: underline; }
+
+/* ── Rodapé ── */
+.rodape {
+  text-align: center;
+  padding: 16px;
+  font-size: 0.75rem;
+  color: #aaa;
+  background: var(--branco);
+  border-top: 1px solid #e8e8e8;
+}
