@@ -20,3 +20,6 @@ build/
 # Variáveis de ambiente
 .env
 .env.local
+
+
+.htacess
