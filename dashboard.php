@@ -41,7 +41,7 @@ $usuario = usuarioLogado();
 
     <div class="cards-grid">
 
-      <a href="admin/inserir-atividade.php" class="card-acao">
+      <a href="-" class="card-acao">
         <div class="card-icone">🏕️</div>
         <div class="card-info">
           <h3>Inserir Atividade</h3>
@@ -50,7 +50,7 @@ $usuario = usuarioLogado();
         <div class="card-seta">→</div>
       </a>
 
-      <a href="admin/inserir-documento.php" class="card-acao">
+      <a href="documentos.php" class="card-acao">
         <div class="card-icone">📄</div>
         <div class="card-info">
           <h3>Inserir Documento</h3>
@@ -60,7 +60,7 @@ $usuario = usuarioLogado();
       </a>
 
       <?php if ($usuario['perfil'] === 'admin'): ?>
-      <a href="admin/inserir-usuario.php" class="card-acao">
+      <a href="-" class="card-acao">
         <div class="card-icone">👤</div>
         <div class="card-info">
           <h3>Inserir Usuário</h3>
