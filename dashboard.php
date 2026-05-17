@@ -9,13 +9,15 @@ $usuario = usuarioLogado();
 <!DOCTYPE html>
 <html lang="pt-BR">
 
-    //DASHBOARD 
+    
+
+     <!-- //DASHBOARD 
 
      //$usuario['nome']    nome do usuário logado
      //$usuario['email']  e-mail do usuário logado
      //$usuario['perfil']  'admin' ou 'user'
 
-     Para mostrar algo só para admin:
+     Para mostrar algo só para admin: -->
      <?php if ($usuario['perfil'] === 'admin'): ?>
        <a href="/usuarios.php">Gerenciar usuários</a>
      <?php endif; ?>
