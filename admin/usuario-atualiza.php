@@ -1,107 +1,141 @@
 <?php
-require "../includes/cabecalho-admin.php";
-require "../includes/funcoes-usuarios.php";
-verificarNivel();
-// Capturando o id passado via URL
-$id = $_GET['id'];
+// admin/usuario-atualiza.php — Editar usuário | somente admin
+require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../src/auth.php';
 
-//Chamamos a função par carregar os dados da pessoa através do id
-$dadosUsuario = listarUmUsuario($conexao, $id);
+exigirAdmin();
 
+$db = getDB();
+$id = (int)($_GET['id'] ?? 0);
 
-//Verificando se o botão do formúlario foi acionado 
-
-if (isset($_POST['atualizar'])) {
-	//Pegando os dados dos campos
-	$nome = $_POST['nome'];
-	$email = $_POST['email'];
-	$tipo = $_POST['tipo'];
-	$senha = $_POST['senha'];
-
-	/* Se a senha estiver vazia OU for a mesma */
-
-	if (empty($_POST['senha']) || password_verify($_POST['senha'], $dadosUsuario['senha'])) {
-		//manter a mesma senha(copiamos a senha do banco para uma variável)
-		$senha = $dadosUsuario['senha'];
-	} else {
-		//codificar a nova semha
-		$senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
-	}
-
-//Redirecionamos para a página com a lista de usuarios
-	atualizarUsuarios($conexao,$id,$nome,$email,$senha,$tipo);
-
-
-//Redirecionamos para a pag com a lista de usuarios
-header("location:usuarios.php");
-
-
+if ($id <= 0) {
+    header('Location: usuarios.php?msg=ID+inválido&tipo=erro');
+    exit;
 }
 
+// Busca o usuário
+$stmt = $db->prepare("SELECT id, nome, email, perfil, ativo FROM usuarios WHERE id = :id");
+$stmt->execute([':id' => $id]);
+$usuario = $stmt->fetch();
 
+if (!$usuario) {
+    header('Location: usuarios.php?msg=Usuário+não+encontrado&tipo=erro');
+    exit;
+}
+
+$erro = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $nome   = trim($_POST['nome']   ?? '');
+    $email  = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
+    $perfil = $_POST['perfil'] ?? '';
+    $senha  = $_POST['senha']  ?? '';
+
+    if (empty($nome) || empty($email) || empty($perfil)) {
+        $erro = 'Nome, e-mail e perfil são obrigatórios.';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $erro = 'E-mail inválido.';
+    } elseif (!in_array($perfil, ['admin', 'editor', 'visualizador'])) {
+        $erro = 'Perfil inválido.';
+    } else {
+        // Verifica email duplicado (exceto o próprio)
+        $check = $db->prepare("SELECT id FROM usuarios WHERE email = :email AND id != :id");
+        $check->execute([':email' => $email, ':id' => $id]);
+        if ($check->fetch()) {
+            $erro = 'Este e-mail já está em uso por outro usuário.';
+        } else {
+            // Se senha foi preenchida, gera novo hash; senão mantém a atual
+            if (!empty($senha)) {
+                if (strlen($senha) < 6) {
+                    $erro = 'A nova senha deve ter pelo menos 6 caracteres.';
+                    goto fim;
+                }
+                $novaHash = password_hash($senha, PASSWORD_BCRYPT, ['cost' => 12]);
+                $db->prepare("UPDATE usuarios SET nome=:nome, email=:email, senha=:senha, perfil=:perfil WHERE id=:id")
+                   ->execute([':nome' => $nome, ':email' => $email, ':senha' => $novaHash, ':perfil' => $perfil, ':id' => $id]);
+            } else {
+                $db->prepare("UPDATE usuarios SET nome=:nome, email=:email, perfil=:perfil WHERE id=:id")
+                   ->execute([':nome' => $nome, ':email' => $email, ':perfil' => $perfil, ':id' => $id]);
+            }
+
+            registrarLog('atualizou usuário', 'usuarios', $id, ['nome' => $nome]);
+
+            header('Location: usuarios.php?msg=' . urlencode('Usuário "' . $nome . '" atualizado com sucesso!') . '&tipo=ok');
+            exit;
+        }
+    }
+    fim:
+}
 ?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Usuário | Admin — 71º GE Minuano</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
 
+  <div class="topo">
+    <div class="topo-texto">
+      <h1>71º Grupo de Escoteiros Minuano</h1>
+      <p>Área Restrita — Editar Usuário</p>
+    </div>
+    <div class="topo-direita">
+      <a href="usuarios.php" class="btn-voltar">← Voltar</a>
+      <a href="../logout.php" class="btn-sair">Sair</a>
+    </div>
+  </div>
 
+  <div class="admin-wrap">
+    <div class="card">
+      <h2>Editar usuário</h2>
 
+      <?php if ($erro): ?>
+        <div class="feedback erro"><?= htmlspecialchars($erro) ?></div>
+      <?php endif; ?>
 
+      <form method="POST" action="" autocomplete="off">
 
+        <div class="form-group">
+          <label for="nome">Nome *</label>
+          <input type="text" id="nome" name="nome" required maxlength="100"
+                 value="<?= htmlspecialchars($_POST['nome'] ?? $usuario['nome']) ?>">
+        </div>
 
+        <div class="form-group">
+          <label for="email">E-mail *</label>
+          <input type="email" id="email" name="email" required maxlength="150"
+                 value="<?= htmlspecialchars($_POST['email'] ?? $usuario['email']) ?>">
+        </div>
 
+        <div class="form-group">
+          <label for="senha">Nova senha <small style="font-weight:400;text-transform:none">(deixe em branco para manter a atual)</small></label>
+          <input type="password" id="senha" name="senha" minlength="6" placeholder="••••••••">
+        </div>
 
+        <div class="form-group">
+          <label for="perfil">Perfil *</label>
+          <select id="perfil" name="perfil" required>
+            <option value="">— Selecione —</option>
+            <?php
+            $perfilAtual = $_POST['perfil'] ?? $usuario['perfil'];
+            foreach (['admin' => 'Admin — acesso total', 'editor' => 'Editor — atividades e documentos', 'visualizador' => 'Visualizador — somente leitura'] as $val => $label):
+            ?>
+              <option value="<?= $val ?>" <?= $perfilAtual === $val ? 'selected' : '' ?>><?= $label ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
 
-<div class="row">
-	<article class="col-12 bg-white rounded shadow my-1 py-4">
+        <button type="submit" class="btn-primary" style="margin-top:8px">Salvar alterações</button>
 
-		<h2 class="text-center">
-			Atualizar dados do usuário
-		</h2>
+      </form>
+    </div>
+  </div>
 
-		<form autocomplete="off" class="mx-auto w-75" action="" method="post" id="form-atualizar" name="form-atualizar">
-
-			<div class="mb-3">
-				<label class="form-label" for="nome">Nome:</label>
-				<input value="<?= $dadosUsuario['nome'] ?>" class="form-control" type="text" id="nome" name="nome" required>
-			</div>
-
-			<div class="mb-3">
-				<label class="form-label" for="email">E-mail:</label>
-				<!-- para aparecer os dados dentro da "caixinha"
-				 <input  value=">?$dadosUsuario['email']?>" -->
-				<input value="<?= $dadosUsuario['email'] ?>" class="form-control" type="email" id="email" name="email" required>
-			</div>
-
-			<div class="mb-3">
-				<label class="form-label" for="senha">Senha:</label>
-				<input class="form-control" type="password" id="senha" name="senha" placeholder="Preencha apenas se for alterar">
-			</div>
-
-			<div class="mb-3">
-				<label class="form-label" for="tipo">Tipo:</label>
-				<select class="form-select" name="tipo" id="tipo" required>
-					<option value=""></option>
-
-					<option
-						<?php if ($dadosUsuario['tipo'] === 'editor') {
-							echo 'selected';
-						} ?>
-						value="editor">Editor</option>
-
-					<option
-						<?php if ($dadosUsuario['tipo'] === 'admin') {
-							echo 'selected';
-						} ?>
-						value="admin">Administrador</option>
-					<!-- selected > faz aparecer primeiro-->
-				</select>
-			</div>
-
-			<button class="btn btn-primary" name="atualizar"><i class="bi bi-arrow-clockwise"></i> Atualizar</button>
-		</form>
-
-	</article>
-</div>
-
-
-<?php
-require "../includes/rodape-admin.php";
-?>
+</body>
+</html>
