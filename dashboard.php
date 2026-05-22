@@ -72,7 +72,7 @@ $usuario = usuarioLogado();
 
     </div>
 
-    <a href="index.php" class="voltar">← Voltar para o site</a>
+    <a href="index.html" class="voltar">← Voltar para o site</a>
 
   </div>
 
