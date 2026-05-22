@@ -1,67 +1,120 @@
-<?php 
-require "../includes/cabecalho-admin.php";
-require "../includes/funcoes-usuarios.php";
-verificarNivel();
-// Se o botão inserir do formulário for acionado
-if(isset($_POST['inserir'])){
-	// Capturar os dados digitados
-	$nome = $_POST['nome'];
-	$email = $_POST['email'];
-	$tipo = $_POST['tipo'];
+<?php
+// admin/usuario-insere.php — Inserir novo usuário | somente admin
+require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../src/auth.php';
 
-	// Capturando a senha e a codificando
-	$senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+exigirAdmin();
 
-	// Executando a função inserirUsuario
-	inserirUsuario($conexao,  $nome, $email, $senha, $tipo);
+$db   = getDB();
+$erro = '';
 
-	// Redirecionamento
-	header("location:usuarios.php");
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $nome   = trim($_POST['nome']   ?? '');
+    $email  = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
+    $perfil = $_POST['perfil'] ?? '';
+    $senha  = $_POST['senha']  ?? '';
+
+    // Validações
+    if (empty($nome) || empty($email) || empty($senha) || empty($perfil)) {
+        $erro = 'Preencha todos os campos obrigatórios.';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $erro = 'E-mail inválido.';
+    } elseif (strlen($senha) < 6) {
+        $erro = 'A senha deve ter pelo menos 6 caracteres.';
+    } elseif (!in_array($perfil, ['admin', 'editor'])) {
+        $erro = 'Perfil inválido.';
+    } else {
+        // Verifica se email já existe
+        $check = $db->prepare("SELECT id FROM usuarios WHERE email = :email");
+        $check->execute([':email' => $email]);
+        if ($check->fetch()) {
+            $erro = 'Este e-mail já está cadastrado.';
+        } else {
+            $hash = password_hash($senha, PASSWORD_BCRYPT, ['cost' => 12]);
+            $stmt = $db->prepare("
+                INSERT INTO usuarios (nome, email, senha, perfil, ativo)
+                VALUES (:nome, :email, :senha, :perfil, 1)
+            ");
+            $stmt->execute([
+                ':nome'   => $nome,
+                ':email'  => $email,
+                ':senha'  => $hash,
+                ':perfil' => $perfil,
+            ]);
+
+            registrarLog('inseriu usuário', 'usuarios', (int)$db->lastInsertId(), ['nome' => $nome]);
+
+            header('Location: usuarios.php?msg=' . urlencode('Usuário "' . $nome . '" cadastrado com sucesso!') . '&tipo=ok');
+            exit;
+        }
+    }
 }
 ?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inserir Usuário | Admin — 71º GE Minuano</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
 
+  <div class="topo">
+    <div class="topo-texto">
+      <h1>71º Grupo de Escoteiros Minuano</h1>
+      <p>Área Restrita — Inserir Usuário</p>
+    </div>
+    <div class="topo-direita">
+      <a href="usuarios.php" class="btn-voltar">← Voltar</a>
+      <a href="../logout.php" class="btn-sair">Sair</a>
+    </div>
+  </div>
 
-<div class="row">
-	<article class="col-12 bg-white rounded shadow my-1 py-4">
-		
-		<h2 class="text-center">
-		Inserir novo usuário
-		</h2>
-				
-		<form autocomplete="off" class="mx-auto w-75" action="" method="post" id="form-inserir" name="form-inserir">
+  <div class="admin-wrap">
+    <div class="card">
+      <h2>Inserir novo usuário</h2>
 
-			<div class="mb-3">
-				<label class="form-label" for="nome">Nome:</label>
-				<input class="form-control" type="text" id="nome" name="nome" required>
-			</div>
+      <?php if ($erro): ?>
+        <div class="feedback erro"><?= htmlspecialchars($erro) ?></div>
+      <?php endif; ?>
 
-			<div class="mb-3">
-				<label class="form-label" for="email">E-mail:</label>
-				<input class="form-control" type="email" id="email" name="email" required>
-			</div>
+      <form method="POST" action="" autocomplete="off">
 
-			<div class="mb-3">
-				<label class="form-label" for="senha">Senha:</label>
-				<input class="form-control" type="password" id="senha" name="senha" required>
-			</div>
+        <div class="form-group">
+          <label for="nome">Nome *</label>
+          <input type="text" id="nome" name="nome" required maxlength="100"
+                 value="<?= htmlspecialchars($_POST['nome'] ?? '') ?>">
+        </div>
 
-			<div class="mb-3">
-				<label class="form-label" for="tipo">Tipo:</label>
-				<select class="form-select" name="tipo" id="tipo" required>
-					<option value=""></option>
-					<option value="editor">Editor</option>
-					<option value="admin">Administrador</option>
-				</select>
-			</div>
-			
-			<button class="btn btn-primary" id="inserir" name="inserir"><i class="bi bi-save"></i> Inserir</button>
-		</form>
-		
-	</article>
-</div>
+        <div class="form-group">
+          <label for="email">E-mail *</label>
+          <input type="email" id="email" name="email" required maxlength="150"
+                 value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
+        </div>
 
+        <div class="form-group">
+          <label for="senha">Senha * <small style="font-weight:400;text-transform:none">(mínimo 6 caracteres)</small></label>
+          <input type="password" id="senha" name="senha" required minlength="6">
+        </div>
 
-<?php 
-require "../includes/rodape-admin.php";
-?>
+        <div class="form-group">
+          <label for="perfil">Perfil *</label>
+          <select id="perfil" name="perfil" required>
+            <option value="">— Selecione —</option>
+            <option value="admin"        <?= ($_POST['perfil'] ?? '') === 'admin'         ? 'selected' : '' ?>>Admin — acesso total</option>
+            <option value="editor"       <?= ($_POST['perfil'] ?? '') === 'editor'        ? 'selected' : '' ?>>Editor — atividades e documentos</option>
+            </select>
+        </div>
 
+        <button type="submit" class="btn-primary" style="margin-top:8px">Inserir Usuário</button>
+
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
