@@ -1,7 +1,9 @@
-<?php
-require "../includes/cabecalho-admin.php";
-?>
+require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../src/auth.php';
 
+exigirAdmin();
+
+$db = getDB();
 
 <article class="p-5 my-4 rounded-3 bg-white shadow">
     <div class="container-fluid py-1">
