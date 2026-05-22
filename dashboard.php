@@ -60,7 +60,7 @@ $usuario = usuarioLogado();
       </a>
 
       <?php if ($usuario['perfil'] === 'admin'): ?>
-      <a href="-" class="card-acao">
+      <a href="admin/usuario-insere.php" class="card-acao">
         <div class="card-icone">👤</div>
         <div class="card-info">
           <h3>Inserir Usuário</h3>
