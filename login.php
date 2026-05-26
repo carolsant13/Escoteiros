@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         </form>
 
-        <a href="index.html" class="voltar">← Voltar para o site</a>
+        <a href="index.php" class="voltar">← Voltar para o site</a>
 
       </div>
     </div>
