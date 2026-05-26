@@ -92,7 +92,7 @@ $isAdmin = isset($_SESSION['usuario_id']) && ($_SESSION['perfil'] ?? '') === 'ad
 
   <header>
     <div class="header-inner">
-      <a href="index.html" class="logo-block">
+            <a href="index.php" class="logo-block">
         <div class="logo-circle">
           <img src="assets/img/logo2.png" alt="Logo 71º Grupo Escoteiro Minuano" class="logo-img" />
         </div>
