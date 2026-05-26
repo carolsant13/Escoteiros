@@ -1,6 +1,4 @@
 
-Copiar
-
 <?php
 // admin/documentos.php — painel de gerenciamento de documentos
 // Acesso: somente perfil 'admin'
