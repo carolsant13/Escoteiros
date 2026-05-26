@@ -120,7 +120,7 @@ $meses = ['', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Ou
           </svg>
           Seja Escoteiro
         </a>
-        <a href="atividades.html" class="header-cta">
+        <a href="visualizar-atividades.php"class="header-cta">
           <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M15 55 L15 35 L40 20 L65 35 L65 55" fill="none" stroke="#1e6b35" stroke-width="4" stroke-linejoin="round" />
             <path d="M30 55 L30 42 L50 42 L50 55" fill="none" stroke="#1e6b35" stroke-width="3" />
@@ -327,43 +327,7 @@ $meses = ['', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Ou
     </section>
   <?php endif; ?>
 
-  <!-- NOTÍCIAS -->
-  <section class="noticias">
-    <div class="container">
-      <h2 class="section-title reveal">Notícias</h2>
-      <div class="section-rule"></div>
-      <div class="cards-grid">
-        <div class="noticia-card reveal">
-          <div class="noticia-img">📰</div>
-          <div class="noticia-body">
-            <div class="noticia-date">15 de Março, 2025</div>
-            <h3>Inscrições abertas para novos membros — Ramos Lobinhos e Escoteiros</h3>
-            <p>O 71º GE Minuano abre vagas para novos integrantes. Venha conhecer nossa sede e participar de uma reunião experimental gratuita.</p>
-            <a href="inscricao.html" class="card-link">Leia mais →</a>
-          </div>
-        </div>
-        <div class="noticia-card reveal reveal-delay-1">
-          <div class="noticia-img">🌲</div>
-          <div class="noticia-body">
-            <div class="noticia-date">02 de Março, 2025</div>
-            <h3>Dia do Escoteiro: plantio de árvores na região</h3>
-            <p>Em homenagem ao Dia do Escoteiro, nossos membros realizaram ação ambiental plantando mudas nativas no Parque Estadual da Cantareira.</p>
-            <a href="atividades.html" class="card-link">Leia mais →</a>
-          </div>
-        </div>
-        <div class="noticia-card reveal reveal-delay-2">
-          <div class="noticia-img">📅</div>
-          <div class="noticia-body">
-            <div class="noticia-date">18 de Fevereiro, 2025</div>
-            <h3>Calendário 2025: confira todas as atividades do ano</h3>
-            <p>Publicamos o calendário completo de atividades para 2025: acampamentos, caminhadas, cursos de formação e eventos especiais.</p>
-            <a href="atividades.html#calendario" class="card-link">Leia mais →</a>
-          </div>
-        </div>
-      </div>
-      <div class="more-link reveal"><a href="atividades.html">➤ Mais notícias</a></div>
-    </div>
-  </section>
+  
 
   <!-- DEPOIMENTOS -->
   <section class="depoimentos">
