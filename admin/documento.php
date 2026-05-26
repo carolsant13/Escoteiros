@@ -169,7 +169,7 @@ foreach ($todos as $doc) {
     <h1>📁 Gerenciar Documentos</h1>
     <div style="display:flex;gap:16px;align-items:center">
       <a href="../documentos.php">← Ver página pública</a>
-      <a href="dashboard.php">Painel Admin</a>
+      <a href="../dashboard.php">Painel Admin</a>
     </div>
   </div>
  
