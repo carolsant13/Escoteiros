@@ -1,14 +1,11 @@
-
 <?php
-if (file_exists(__DIR__ . '/env.php')) {
-    require_once __DIR__ . '/env.php';
-} else {
-    define('DB_HOST',    'sql311.infinityfree.com');
-    define('DB_NAME',    'if0_42026129_minuano');
-    define('DB_USER',    'if0_42026129');
-    define('DB_PASS',    'Mari280404');
-    define('DB_CHARSET', 'utf8mb4');
-}
+// config/db.php
+
+define('DB_HOST',    'sql311.infinityfree.com');
+define('DB_NAME',    'if0_42026129_minuano');
+define('DB_USER',    'if0_42026129');
+define('DB_PASS',    'Mari280404');
+define('DB_CHARSET', 'utf8mb4');
 
 function getDB(): PDO {
     static $pdo = null;
@@ -25,9 +22,9 @@ function getDB(): PDO {
                 PDO::ATTR_EMULATE_PREPARES   => false,
             ]);
         } catch (PDOException $e) {
-    error_log('[DB ERROR] ' . $e->getMessage());
-    die('Erro de conexão com o banco de dados.');
-}
+            error_log('[DB ERROR] ' . $e->getMessage());
+            die('Erro de conexão com o banco de dados.');
+        }
     }
 
     return $pdo;
