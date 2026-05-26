@@ -25,9 +25,9 @@ function getDB(): PDO {
                 PDO::ATTR_EMULATE_PREPARES   => false,
             ]);
         } catch (PDOException $e) {
-            error_log('[DB ERROR] ' . $e->getMessage());
-            die('Erro de conexão com o banco de dados.');
-        }
+    error_log('[DB ERROR] ' . $e->getMessage());
+    die('Erro de conexão com o banco de dados.');
+}
     }
 
     return $pdo;
