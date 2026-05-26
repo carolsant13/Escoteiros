@@ -41,7 +41,7 @@ $usuario = usuarioLogado();
 
     <div class="cards-grid">
 
-      <a href="-" class="card-acao">
+      <a href="admin/atividades.php" class="card-acao">
         <div class="card-icone">🏕️</div>
         <div class="card-info">
           <h3>Inserir Atividade</h3>
