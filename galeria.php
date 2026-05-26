@@ -75,12 +75,10 @@ $isAdmin = isset($_SESSION['usuario_id']) && ($_SESSION['perfil'] ?? '') === 'ad
           <a href="https://www.escoteiros.org.br/ramo-pioneiro/">Pioneiros</a>
         </div>
       </div>
-      <div class="has-dropdown">
-        <a href="atividades.html">Nossas Atividades</a>
+   <div class="has-dropdown">
+        <a href="visualizar-atividades.php#">Nossas Atividades</a>
         <div class="dropdown">
-          <a href="atividades.html#calendario">Calendário</a>
-          <a href="atividades.html#acampamentos">Acampamentos</a>
-          <a href="atividades.html#eventos">Eventos</a>
+          <a href="visualizar-atividades.php">Atividades</a>
           <a href="galeria.php">Galeria</a>
         </div>
       </div>
@@ -112,7 +110,7 @@ $isAdmin = isset($_SESSION['usuario_id']) && ($_SESSION['perfil'] ?? '') === 'ad
           </svg>
           Seja Escoteiro
         </a>
-        <a href="atividades.html" class="header-cta">
+        <a href="visualizar-atividades.php" class="header-cta">
           <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M15 55 L15 35 L40 20 L65 35 L65 55" fill="none" stroke="#1e6b35" stroke-width="4" stroke-linejoin="round"/>
             <path d="M30 55 L30 42 L50 42 L50 55" fill="none" stroke="#1e6b35" stroke-width="3"/>
@@ -202,7 +200,7 @@ $isAdmin = isset($_SESSION['usuario_id']) && ($_SESSION['perfil'] ?? '') === 'ad
         <h4>Links Rápidos</h4>
         <ul>
           <li><a href="quem-somos.html">Quem Somos</a></li>
-          <li><a href="atividades.html">Nossas Atividades</a></li>
+          <li><a href="visualizar-atividades.php">Nossas Atividades</a></li>
           <li><a href="galeria.php">Galeria</a></li>
           <li><a href="inscricao.html">Inscreva-se</a></li>
         </ul>

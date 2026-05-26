@@ -94,12 +94,10 @@ $isAdmin = isset($_SESSION['usuario_id']) && ($_SESSION['perfil'] ?? '') === 'ad
         </div>
       </div>
       <div class="has-dropdown">
-        <a href="atividades.html">Nossas Atividades</a>
+        <a href="visualizar-atividades.php#">Nossas Atividades</a>
         <div class="dropdown">
-          <a href="atividades.html#calendario">Calendário</a>
-          <a href="atividades.html#acampamentos">Acampamentos</a>
-          <a href="atividades.html#eventos">Eventos</a>
-          <a href="galeria.html">Galeria</a>
+          <a href="visualizar-atividades.php">Atividades</a>
+          <a href="galeria.php">Galeria</a>
         </div>
       </div>
       <a href="documentos.php" class="active">Documentos</a>
@@ -112,7 +110,7 @@ $isAdmin = isset($_SESSION['usuario_id']) && ($_SESSION['perfil'] ?? '') === 'ad
  
   <header>
     <div class="header-inner">
-      <a href="index.html" class="logo-block">
+      <a href="index.php" class="logo-block">
         <div class="logo-circle"><img src="assets/img/logo2.png" alt="Logo" class="logo-img" /></div>
         <div class="logo-text">
           <h1>71º Grupo de Escoteiros Minuano</h1>
@@ -127,7 +125,7 @@ $isAdmin = isset($_SESSION['usuario_id']) && ($_SESSION['perfil'] ?? '') === 'ad
           </svg>
           Seja Escoteiro
         </a>
-        <a href="atividades.html" class="header-cta">
+        <a href="visualizar-atividades.php"class="header-cta">
           <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M15 55 L15 35 L40 20 L65 35 L65 55" fill="none" stroke="#1e6b35" stroke-width="4" stroke-linejoin="round"/>
           </svg>
@@ -210,19 +208,18 @@ $isAdmin = isset($_SESSION['usuario_id']) && ($_SESSION['perfil'] ?? '') === 'ad
  
     </div>
   </section>
- 
-  <footer>
+   <footer>
     <div class="footer-inner">
       <div>
         <h4>71º Grupo de Escoteiros Minuano</h4>
-        <address>Av. Waldemar Tietz, 1154<br/>São Paulo – SP</address>
+        <address>Av. Waldemar Tietz, 1154<br>São Paulo – SP</address>
       </div>
       <div>
         <h4>Links Rápidos</h4>
         <ul>
           <li><a href="quem-somos.html">Quem Somos</a></li>
-          <li><a href="atividades.html">Nossas Atividades</a></li>
-          <li><a href="galeria.html">Galeria</a></li>
+          <li><a href="visualizar-atividades.php">Nossas Atividades</a></li>
+          <li><a href="galeria.php">Galeria</a></li>
           <li><a href="inscricao.html">Inscreva-se</a></li>
         </ul>
       </div>
@@ -235,7 +232,7 @@ $isAdmin = isset($_SESSION['usuario_id']) && ($_SESSION['perfil'] ?? '') === 'ad
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">© 2025 71º Grupo de Escoteiros Minuano — Todos os direitos reservados.</div>
+    <div class="footer-bottom">© <?= date('Y') ?> 71º Grupo de Escoteiros Minuano — Todos os direitos reservados.</div>
   </footer>
  
   <?php if ($isAdmin): ?>

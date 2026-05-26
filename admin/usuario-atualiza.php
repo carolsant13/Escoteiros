@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erro = 'Nome, e-mail e perfil são obrigatórios.';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $erro = 'E-mail inválido.';
-    } elseif (!in_array($perfil, ['admin', 'editor', 'visualizador'])) {
+    } elseif (!in_array($perfil, ['admin', 'editor'])) {
         $erro = 'Perfil inválido.';
     } else {
         // Verifica email duplicado (exceto o próprio)
@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <option value="">— Selecione —</option>
             <?php
             $perfilAtual = $_POST['perfil'] ?? $usuario['perfil'];
-            foreach (['admin' => 'Admin — acesso total', 'editor' => 'Editor — atividades e documentos', 'visualizador' => 'Visualizador — somente leitura'] as $val => $label):
+            foreach (['admin' => 'Admin — acesso total', 'editor' => 'Editor — atividades e documentos'] as $val => $label):
             ?>
               <option value="<?= $val ?>" <?= $perfilAtual === $val ? 'selected' : '' ?>><?= $label ?></option>
             <?php endforeach; ?>

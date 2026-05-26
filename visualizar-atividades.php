@@ -69,7 +69,7 @@ $meses = ['', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Ou
         <a href="visualizar-atividades.php" class="active">Nossas Atividades</a>
         <div class="dropdown">
           <a href="visualizar-atividades.php#calendario">Calendário</a>
-          <a href="galeria.html">Galeria</a>
+          <a href="galeria.php">Galeria</a>
         </div>
       </div>
       <a href="documentos.php">Documentos</a>
@@ -170,14 +170,14 @@ $meses = ['', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Ou
     <div class="footer-inner">
       <div>
         <h4>71º Grupo de Escoteiros Minuano</h4>
-        <address>Av. Waldemar Tietz, 1154<br/>São Paulo – SP</address>
+        <address>Av. Waldemar Tietz, 1154<br>São Paulo – SP</address>
       </div>
       <div>
         <h4>Links Rápidos</h4>
         <ul>
           <li><a href="quem-somos.html">Quem Somos</a></li>
           <li><a href="visualizar-atividades.php">Nossas Atividades</a></li>
-          <li><a href="galeria.html">Galeria</a></li>
+          <li><a href="galeria.php">Galeria</a></li>
           <li><a href="inscricao.html">Inscreva-se</a></li>
         </ul>
       </div>
@@ -186,6 +186,7 @@ $meses = ['', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Ou
         <ul>
           <li><a href="contato.html">📩 Fale Conosco</a></li>
           <li><a href="login.php">📋 Área Restrita</a></li>
+          <li><a href="doe-agora.html">💛 Doe Agora</a></li>
         </ul>
       </div>
     </div>
