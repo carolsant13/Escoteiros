@@ -29,7 +29,7 @@ $msgTipo = $_GET['tipo'] ?? 'ok';
       <p>Área Restrita — Gerenciar Usuários</p>
     </div>
     <div class="topo-direita">
-      <a href="dashboard.php" class="btn-voltar">← Painel</a>
+      <a href="../dashboard.php" class="btn-voltar">← Painel</a>
       <a href="../logout.php" class="btn-sair">Sair</a>
     </div>
   </div>

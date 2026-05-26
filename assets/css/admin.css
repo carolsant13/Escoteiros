@@ -205,3 +205,7 @@ body {
 .badge-perfil.editor       { background: #cce5ff; color: #004085; }
 .badge-perfil.visualizador { background: #fff3cd; color: #856404; }
 .badge-inativo { background: #f8d7da; color: #721c24; padding: 2px 8px; border-radius: 12px; font-size: .78rem; font-weight: 700; }
+
+/* ── Layout de linha para formulários ── */
+.form-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.form-row .form-group { flex: 1; min-width: 160px; }

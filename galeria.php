@@ -1,25 +1,17 @@
 <?php
-
 require_once __DIR__ . '/config/db.php';
 require_once __DIR__ . '/src/auth.php';
- 
-// Carrega todos os documentos ativos agrupados por categoria
-$db   = getDB();
-$stmt = $db->query("
-    SELECT id, categoria, titulo, descricao, icone, tipo_fonte, arquivo_path
-    FROM documentos
-    WHERE ativo = 1
-    ORDER BY categoria, ordem, id
-");
-$todos = $stmt->fetchAll();
- 
-// Agrupa por categoria mantendo ordem de inserção
-$categorias = [];
-foreach ($todos as $doc) {
-    $categorias[$doc['categoria']][] = $doc;
-}
- 
-// Verifica se o usuário logado é admin (para mostrar o botão de gerenciar)
+
+$db = getDB();
+
+$fotos = $db->query("
+    SELECT f.id, f.url, f.legenda, g.titulo AS galeria_titulo, g.tipo
+    FROM fotos f
+    JOIN galerias g ON g.id = f.galeria_id
+    WHERE g.publicado = 1
+    ORDER BY g.created_at DESC, f.ordem ASC, f.id ASC
+")->fetchAll();
+
 $isAdmin = isset($_SESSION['usuario_id']) && ($_SESSION['perfil'] ?? '') === 'admin';
 ?>
 <!doctype html>
@@ -27,40 +19,30 @@ $isAdmin = isset($_SESSION['usuario_id']) && ($_SESSION['perfil'] ?? '') === 'ad
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Documentos | 71º GE Minuano</title>
+  <title>Galeria | 71º GE Minuano</title>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/main.css" />
   <?php if ($isAdmin): ?>
   <style>
-    /* Barra flutuante de admin */
     .admin-bar {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 999;
+      position: fixed; bottom: 24px; right: 24px; z-index: 999;
     }
     .admin-bar a {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--navy);
-      color: #fff;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--navy); color: #fff;
       font-family: 'Source Sans 3', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 600;
-      padding: 12px 22px;
-      border-radius: 40px;
+      font-size: 0.9rem; font-weight: 600;
+      padding: 12px 22px; border-radius: 40px;
       text-decoration: none;
       box-shadow: 0 4px 18px rgba(0,0,0,0.25);
       transition: background 0.2s, transform 0.15s;
     }
     .admin-bar a:hover { background: var(--navy-light); transform: translateY(-2px); }
-    .admin-bar a svg { width: 18px; height: 18px; }
   </style>
   <?php endif; ?>
 </head>
 <body>
- 
+
   <nav class="topnav">
     <div class="topnav-inner" id="topnav-inner">
       <div class="has-dropdown">
@@ -99,24 +81,27 @@ $isAdmin = isset($_SESSION['usuario_id']) && ($_SESSION['perfil'] ?? '') === 'ad
           <a href="atividades.html#calendario">Calendário</a>
           <a href="atividades.html#acampamentos">Acampamentos</a>
           <a href="atividades.html#eventos">Eventos</a>
-          <a href="galeria.html">Galeria</a>
+          <a href="galeria.php">Galeria</a>
         </div>
       </div>
-      <a href="documentos.php" class="active">Documentos</a>
+      <a href="documentos.php">Documentos</a>
       <a href="login.php" class="area-restrita">|Área Restrita|</a>
       <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
- 
+
   <header>
     <div class="header-inner">
       <a href="index.html" class="logo-block">
-        <div class="logo-circle"><img src="assets/img/logo2.png" alt="Logo" class="logo-img" /></div>
+        <div class="logo-circle">
+          <img src="assets/img/logo2.png" alt="Logo 71º Grupo Escoteiro Minuano" class="logo-img" />
+        </div>
         <div class="logo-text">
           <h1>71º Grupo de Escoteiros Minuano</h1>
-          <p>Av. Waldemar Tietz, 1154 — São Paulo – SP &nbsp;|&nbsp; Fundado em 31/05/1981</p>
+          <p>Av. Waldemar Tietz, 1154 — Conj. Hab. Padre José de Anchieta<br>
+             São Paulo – SP &nbsp;|&nbsp; Fundado em 31/05/1981</p>
         </div>
       </a>
       <div class="header-ctas">
@@ -130,99 +115,95 @@ $isAdmin = isset($_SESSION['usuario_id']) && ($_SESSION['perfil'] ?? '') === 'ad
         <a href="atividades.html" class="header-cta">
           <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M15 55 L15 35 L40 20 L65 35 L65 55" fill="none" stroke="#1e6b35" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M30 55 L30 42 L50 42 L50 55" fill="none" stroke="#1e6b35" stroke-width="3"/>
+            <path d="M10 55 L70 55" stroke="#1e6b35" stroke-width="4" stroke-linecap="round"/>
           </svg>
           Nossas Atividades
         </a>
       </div>
     </div>
   </header>
- 
+
   <div class="page-header">
     <div class="container">
       <nav class="breadcrumb">
         <a href="index.html">Início</a>
         <span class="breadcrumb-sep">›</span>
-        <span>Documentos</span>
+        <a href="atividades.html">Nossas Atividades</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Galeria</span>
       </nav>
-      <span class="page-badge">Downloads</span>
-      <h1>Documentos</h1>
+      <span class="page-badge">Momentos Inesquecíveis</span>
+      <h1>Galeria de Fotos</h1>
       <p class="page-subtitle">
-        Acesse formulários, regulamentos, estatuto e demais documentos do 71º GE Minuano para download.
+        Reviva os melhores momentos do 71º GE Minuano: acampamentos, eventos, reuniões e muito mais.
       </p>
     </div>
   </div>
- 
+
   <section>
     <div class="container">
- 
-      <?php if (empty($categorias)): ?>
-        <p style="color: var(--gray); text-align:center; padding: 40px 0;">
-          Nenhum documento disponível no momento.
+
+      <?php if (empty($fotos)): ?>
+        <p style="text-align:center;color:#888;padding:60px 0;font-size:1.1rem">
+          Em breve novas fotos serão publicadas aqui. 📷
         </p>
       <?php else: ?>
- 
-        <?php $first = true; foreach ($categorias as $nomeCategoria => $docs): ?>
-          <h2 class="section-title <?= $first ? '' : 'reveal' ?>"
-              style="text-align:left; margin-bottom:16px; <?= $first ? '' : 'margin-top:52px' ?>">
-            <?= htmlspecialchars($nomeCategoria) ?>
-          </h2>
-          <div class="section-rule" style="margin-left:0; margin-bottom:24px"></div>
- 
-          <div class="document-list reveal">
-            <?php foreach ($docs as $doc):
-              // arquivo_path guarda caminho local (upload) ou URL completa (Drive)
-              if ($doc['tipo_fonte'] === 'google_drive' && $doc['arquivo_path']) {
-                $href   = htmlspecialchars($doc['arquivo_path']);
-                $target = 'target="_blank" rel="noopener noreferrer"';
-              } elseif ($doc['arquivo_path']) {
-                $href   = htmlspecialchars($doc['arquivo_path']);
-                $target = '';
-              } else {
-                // Documento sem arquivo ainda: link inativo
-                $href   = '#';
-                $target = '';
-              }
-            ?>
-            <a href="<?= $href ?>" class="document-item" <?= $target ?>>
-              <div class="document-icon"><?= $doc['icone'] ?></div>
-              <div class="document-info">
-                <h4><?= htmlspecialchars($doc['titulo']) ?></h4>
-                <?php if ($doc['descricao']): ?>
-                  <span><?= htmlspecialchars($doc['descricao']) ?></span>
-                <?php endif; ?>
-              </div>
-              <span class="document-download">⬇ Download</span>
-            </a>
-            <?php endforeach; ?>
+
+        <div class="gallery-filter">
+          <button class="filter-btn active" data-filter="all">Todas</button>
+          <button class="filter-btn" data-filter="acampamento">Acampamentos</button>
+          <button class="filter-btn" data-filter="evento">Eventos</button>
+          <button class="filter-btn" data-filter="reuniao">Reuniões</button>
+          <button class="filter-btn" data-filter="servico">Serviço</button>
+        </div>
+
+        <div class="gallery-grid" id="gallery-grid">
+          <?php foreach ($fotos as $f):
+            $caption = htmlspecialchars($f['legenda'] ?: $f['galeria_titulo']);
+            $src     = htmlspecialchars($f['url']);
+          ?>
+          <div class="gallery-item" data-cat="<?= htmlspecialchars($f['tipo']) ?>">
+            <div class="gallery-thumb">
+              <img src="<?= $src ?>" alt="<?= $caption ?>" loading="lazy"
+                   style="width:100%;height:100%;object-fit:cover;display:block">
+            </div>
+            <div class="gallery-caption-bar"><?= $caption ?></div>
           </div>
- 
-          <?php $first = false; endforeach; ?>
+          <?php endforeach; ?>
+        </div>
+
       <?php endif; ?>
- 
+
       <div class="info-box reveal" style="margin-top:40px">
-        <h4>Precisa de outro documento?</h4>
-        <p>
-          Se precisar de algum documento não listado acima, entre em contato conosco pelo
-          <a href="contato.html" style="color:var(--navy-light)">formulário de contato</a>
-          ou WhatsApp e teremos prazer em ajudar.
+        <h4>Quer participar desta história?</h4>
+        <p>Junte-se ao 71º GE Minuano e crie suas próprias memórias inesquecíveis.
+           <a href="inscricao.html" style="color:var(--navy-light)">Quero me inscrever →</a>
         </p>
       </div>
- 
+
     </div>
   </section>
- 
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualização de foto">
+    <div class="lightbox-inner"></div>
+    <button class="lightbox-close" aria-label="Fechar">✕</button>
+    <div class="lightbox-caption"></div>
+  </div>
+
   <footer>
     <div class="footer-inner">
       <div>
         <h4>71º Grupo de Escoteiros Minuano</h4>
-        <address>Av. Waldemar Tietz, 1154<br/>São Paulo – SP</address>
+        <address>Av. Waldemar Tietz, 1154<br>São Paulo – SP</address>
       </div>
       <div>
         <h4>Links Rápidos</h4>
         <ul>
           <li><a href="quem-somos.html">Quem Somos</a></li>
           <li><a href="atividades.html">Nossas Atividades</a></li>
-          <li><a href="galeria.html">Galeria</a></li>
+          <li><a href="galeria.php">Galeria</a></li>
           <li><a href="inscricao.html">Inscreva-se</a></li>
         </ul>
       </div>
@@ -235,23 +216,51 @@ $isAdmin = isset($_SESSION['usuario_id']) && ($_SESSION['perfil'] ?? '') === 'ad
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">© 2025 71º Grupo de Escoteiros Minuano — Todos os direitos reservados.</div>
+    <div class="footer-bottom">© <?= date('Y') ?> 71º Grupo de Escoteiros Minuano — Todos os direitos reservados.</div>
   </footer>
- 
+
   <?php if ($isAdmin): ?>
   <div class="admin-bar">
-    <a href="admin/documentos.php">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5
-                 m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-      </svg>
-      Gerenciar Documentos
-    </a>
+    <a href="admin/galeria.php">📷 Gerenciar Galeria</a>
   </div>
   <?php endif; ?>
- 
+
   <button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo">↑</button>
   <script src="assets/js/main.js"></script>
+  <script>
+    // Filtro de categorias
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const filter = this.dataset.filter;
+        document.querySelectorAll('.gallery-item').forEach(item => {
+          item.style.display = (filter === 'all' || item.dataset.cat === filter) ? '' : 'none';
+        });
+      });
+    });
+
+    // Lightbox com imagens reais
+    const lightbox    = document.getElementById('lightbox');
+    const lbInner     = lightbox.querySelector('.lightbox-inner');
+    const lbCaption   = lightbox.querySelector('.lightbox-caption');
+    const lbClose     = lightbox.querySelector('.lightbox-close');
+
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.addEventListener('click', function () {
+        const img     = this.querySelector('img');
+        const caption = this.querySelector('.gallery-caption-bar')?.textContent || '';
+        lbInner.innerHTML = img
+          ? `<img src="${img.src}" alt="${caption}" style="max-width:90vw;max-height:78vh;border-radius:8px;display:block">`
+          : '';
+        lbCaption.textContent = caption;
+        lightbox.classList.add('active');
+      });
+    });
+
+    lbClose.addEventListener('click', () => lightbox.classList.remove('active'));
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('active'); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') lightbox.classList.remove('active'); });
+  </script>
 </body>
 </html>

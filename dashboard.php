@@ -41,16 +41,21 @@ $usuario = usuarioLogado();
 
     <div class="cards-grid">
 
+<<<<<<< HEAD
       <a href="admin/atividades.php" class="card-acao">
         <div class="card-icone">🏕️</div>
+=======
+      <a href="admin/galeria.php" class="card-acao">
+        <div class="card-icone">📷</div>
+>>>>>>> 13df8c7 (galeria de fotos para administrador)
         <div class="card-info">
-          <h3>Inserir Atividade</h3>
-          <p>Cadastre acampamentos, reuniões, eventos e cursos</p>
+          <h3>Gerenciar Galeria</h3>
+          <p>Adicione e organize fotos de atividades e eventos</p>
         </div>
         <div class="card-seta">→</div>
       </a>
 
-      <a href="documentos.php" class="card-acao">
+      <a href="admin/documento.php" class="card-acao">
         <div class="card-icone">📄</div>
         <div class="card-info">
           <h3>Inserir Documento</h3>

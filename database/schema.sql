@@ -226,6 +226,9 @@ CREATE TABLE `membros` (
 
 -- --------------------------------------------------------
 
+-- Estrutura para tabela ´galerias`
+
+ALTER TABLE `galerias` ADD `tipo` ENUM('acampamento','reuniao','evento','servico','outro') NOT NULL DEFAULT 'outro' AFTER `descricao`;
 --
 -- Estrutura para tabela `noticias`
 --
