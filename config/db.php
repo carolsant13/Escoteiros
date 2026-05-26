@@ -1,11 +1,14 @@
-<?php
-// config/db.php
 
-define('DB_HOST',    'sql311.infinityfree.com');
-define('DB_NAME',    'if0_42026129_minuano');
-define('DB_USER',    'if0_42026129');
-define('DB_PASS',    'Mari280404');
-define('DB_CHARSET', 'utf8mb4');
+<?php
+if (file_exists(__DIR__ . '/env.php')) {
+    require_once __DIR__ . '/env.php';
+} else {
+    define('DB_HOST',    'sql311.infinityfree.com');
+    define('DB_NAME',    'if0_42026129_minuano');
+    define('DB_USER',    'if0_42026129');
+    define('DB_PASS',    'Mari280404');
+    define('DB_CHARSET', 'utf8mb4');
+}
 
 function getDB(): PDO {
     static $pdo = null;
