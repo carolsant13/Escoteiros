@@ -5,7 +5,7 @@
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../src/auth.php';
  
-exigirAdmin();
+exigirAdminOuEditor();
  
 // Só aceita POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

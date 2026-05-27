@@ -6,7 +6,7 @@
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../src/auth.php';
  
-exigirAdmin(); // redireciona se não for admin
+exigirAdminOuEditor(); // redireciona se não for admin ou editor
  
 $db = getDB();
  
