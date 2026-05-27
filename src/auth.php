@@ -21,12 +21,25 @@ function exigirLogin(): void {
 
 // -------------------------------------------------------
 // Exige perfil admin.
-// Editor e visualizador são barrados por enquanto.
+// Editor e visualizador são barrados.
 
 function exigirAdmin(): void {
     exigirLogin();
     if ($_SESSION['perfil'] !== 'admin') {
-        header('Location: /admin/dashboard.php?erro=acesso_negado');
+        header('Location: /dashboard.php?erro=acesso_negado');
+        exit;
+    }
+}
+
+// -------------------------------------------------------
+// Exige perfil admin OU editor.
+// Visualizador é barrado.
+// -------------------------------------------------------
+function exigirAdminOuEditor(): void {
+    exigirLogin();
+    $perfil = $_SESSION['perfil'] ?? '';
+    if ($perfil !== 'admin' && $perfil !== 'editor') {
+        header('Location: /dashboard.php?erro=acesso_negado');
         exit;
     }
 }
