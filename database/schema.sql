@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 22/05/2026 às 14:35
+-- Tempo de geração: 28/05/2026 às 17:47
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -117,20 +117,25 @@ CREATE TABLE `destaques` (
 --
 
 CREATE TABLE `documentos` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `titulo` varchar(200) NOT NULL,
-  `descricao` varchar(400) DEFAULT NULL,
-  `icone` varchar(10) DEFAULT NULL,
-  `tipo_fonte` varchar(20) DEFAULT NULL,
-  `arquivo_path` varchar(500) DEFAULT NULL,
-  `arquivo_url` varchar(255) NOT NULL,
-  `categoria` varchar(80) DEFAULT NULL,
-  `restrito` tinyint(1) NOT NULL DEFAULT 0,
-  `ordem` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
-  `ativo` tinyint(1) NOT NULL DEFAULT 1,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `id` int(11) NOT NULL,
+  `categoria` varchar(255) NOT NULL,
+  `titulo` varchar(255) NOT NULL,
+  `descricao` text DEFAULT NULL,
+  `icone` varchar(10) DEFAULT '?',
+  `tipo_fonte` varchar(50) NOT NULL,
+  `arquivo_path` text DEFAULT NULL,
+  `ordem` int(11) DEFAULT 0,
+  `ativo` tinyint(1) DEFAULT 1,
+  `criado_por` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `documentos`
+--
+
+INSERT INTO `documentos` (`id`, `categoria`, `titulo`, `descricao`, `icone`, `tipo_fonte`, `arquivo_path`, `ordem`, `ativo`, `criado_por`, `created_at`) VALUES
+(1, 'teste1', 'Testando', 'teste1', '📄', 'upload', 'uploads/documentos/20260528_174416_documento_escoteiros_teste.pdf', 0, 1, 4, '2026-05-28 15:44:16');
 
 -- --------------------------------------------------------
 
@@ -166,6 +171,13 @@ CREATE TABLE `fotos` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `fotos`
+--
+
+INSERT INTO `fotos` (`id`, `galeria_id`, `url`, `legenda`, `ordem`, `created_at`) VALUES
+(1, 1, 'assets/uploads/galeria/foto_6a15fa600eae89.38918830.png', 'teste', 0, '2026-05-26 16:54:08');
+
 -- --------------------------------------------------------
 
 --
@@ -176,12 +188,20 @@ CREATE TABLE `galerias` (
   `id` int(10) UNSIGNED NOT NULL,
   `titulo` varchar(200) NOT NULL,
   `descricao` text DEFAULT NULL,
+  `tipo` enum('acampamento','reuniao','evento','servico','outro') NOT NULL DEFAULT 'outro',
   `atividade_id` int(10) UNSIGNED DEFAULT NULL,
   `capa_url` varchar(255) DEFAULT NULL,
   `publicado` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `galerias`
+--
+
+INSERT INTO `galerias` (`id`, `titulo`, `descricao`, `tipo`, `atividade_id`, `capa_url`, `publicado`, `created_at`, `updated_at`) VALUES
+(1, 'Testando', 'teste', 'acampamento', NULL, NULL, 1, '2026-05-26 16:53:55', '2026-05-26 16:53:55');
 
 -- --------------------------------------------------------
 
@@ -199,6 +219,28 @@ CREATE TABLE `logs_admin` (
   `ip` varchar(45) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `logs_admin`
+--
+
+INSERT INTO `logs_admin` (`id`, `usuario_id`, `acao`, `tabela`, `registro_id`, `detalhes`, `ip`, `created_at`) VALUES
+(1, 1, 'inseriu usuário', 'usuarios', 3, '{\"nome\":\"maria\"}', '::1', '2026-05-22 17:01:01'),
+(2, 1, 'excluiu usuário', 'usuarios', 3, '{\"nome\":\"maria\"}', '::1', '2026-05-22 17:09:25'),
+(3, 1, 'inseriu usuário', 'usuarios', 4, '{\"nome\":\"ana\"}', '::1', '2026-05-22 17:16:03'),
+(4, 1, 'inseriu atividade', 'atividades', 1, '{\"titulo\":\"teste de atividade\"}', '::1', '2026-05-25 22:09:51'),
+(5, 4, 'inseriu atividade', 'atividades', 2, '{\"titulo\":\"testee\"}', '::1', '2026-05-25 22:16:00'),
+(6, 4, 'inseriu atividade', 'atividades', 3, '{\"titulo\":\"dsfef\"}', '::1', '2026-05-25 22:17:16'),
+(7, 4, 'atualizou atividade', 'atividades', 2, '{\"titulo\":\"testee\"}', '::1', '2026-05-25 22:22:35'),
+(8, 4, 'atualizou atividade', 'atividades', 2, '{\"titulo\":\"testee\"}', '::1', '2026-05-25 22:22:42'),
+(9, 4, 'atualizou atividade', 'atividades', 3, '{\"titulo\":\"dsfef\"}', '::1', '2026-05-25 22:22:48'),
+(10, 4, 'inseriu atividade', 'atividades', 4, '{\"titulo\":\"fezwfrt\"}', '::1', '2026-05-25 22:34:10'),
+(11, 4, 'excluiu atividade', 'atividades', 3, '{\"titulo\":\"dsfef\"}', '::1', '2026-05-26 14:44:25'),
+(12, 4, 'excluiu atividade', 'atividades', 4, '{\"titulo\":\"fezwfrt\"}', '::1', '2026-05-26 14:44:27'),
+(13, 4, 'excluiu atividade', 'atividades', 2, '{\"titulo\":\"testee\"}', '::1', '2026-05-26 14:44:29'),
+(14, 4, 'excluiu atividade', 'atividades', 1, '{\"titulo\":\"teste de atividade\"}', '::1', '2026-05-26 14:44:31'),
+(15, 1, 'atualizou usuário', 'usuarios', 4, '{\"nome\":\"ana\"}', '::1', '2026-05-26 16:36:27'),
+(16, 4, 'adicionou documento', 'documentos', 1, '{\"titulo\":\"Testando\"}', '::1', '2026-05-28 12:44:16');
 
 -- --------------------------------------------------------
 
@@ -226,9 +268,6 @@ CREATE TABLE `membros` (
 
 -- --------------------------------------------------------
 
--- Estrutura para tabela ´galerias`
-
-ALTER TABLE `galerias` ADD `tipo` ENUM('acampamento','reuniao','evento','servico','outro') NOT NULL DEFAULT 'outro' AFTER `descricao`;
 --
 -- Estrutura para tabela `noticias`
 --
@@ -323,7 +362,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `perfil`, `ativo`, `ultimo_login`, `created_at`, `updated_at`) VALUES
-(1, 'Administrador', 'admin@minuando.org.br', '$2y$10$979xnyw8bjXSiUWYG4L8Au1u8OoRAky21Va941VzW.qEoYnW0iSIC', 'admin', 1, '2026-05-22 09:16:17', '2026-05-12 22:17:37', '2026-05-22 09:16:17');
+(1, 'Administrador', 'admin@minuando.org.br', '$2y$10$979xnyw8bjXSiUWYG4L8Au1u8OoRAky21Va941VzW.qEoYnW0iSIC', 'admin', 1, '2026-05-26 16:51:22', '2026-05-12 22:17:37', '2026-05-26 16:51:22'),
+(4, 'ana', 'ana@gmail.com', '$2y$12$tNWNAkboVO4Q0eKdKP6YVeeX0IrL2TTwiujwJ2H2QNYkKi5aDfEvi', 'editor', 1, '2026-05-28 12:36:15', '2026-05-22 17:16:03', '2026-05-28 12:36:15');
 
 --
 -- Índices para tabelas despejadas
@@ -442,7 +482,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `atividades`
 --
 ALTER TABLE `atividades`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `contatos`
@@ -466,7 +506,7 @@ ALTER TABLE `destaques`
 -- AUTO_INCREMENT de tabela `documentos`
 --
 ALTER TABLE `documentos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `empresas_amigas`
@@ -478,19 +518,19 @@ ALTER TABLE `empresas_amigas`
 -- AUTO_INCREMENT de tabela `fotos`
 --
 ALTER TABLE `fotos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `galerias`
 --
 ALTER TABLE `galerias`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `logs_admin`
 --
 ALTER TABLE `logs_admin`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `membros`
@@ -520,7 +560,7 @@ ALTER TABLE `slides`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restrições para tabelas despejadas
@@ -574,6 +614,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-//Email: admin@minuando.org.br
-//Senha: admin123
-//tirar esse coment antes de postar, fazer login como adm
+
