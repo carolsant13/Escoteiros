@@ -24,3 +24,4 @@ build/
 config/env.php
 .htacess
 /assets/uploads/galeria
+/uploads/documentos
