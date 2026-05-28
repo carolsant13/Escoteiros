@@ -17,8 +17,8 @@ $db   = getDB();
 $acao = trim($_POST['acao'] ?? '');
  
 // Helper de redirecionamento com mensagem
-function redir(string $msg, string $tipo = 'ok'): never {
-    header('Location: documentos.php?msg=' . urlencode($msg) . '&tipo=' . $tipo);
+function redir(string $msg, string $tipo = 'ok'): void {
+    header('Location: documento.php?msg=' . urlencode($msg) . '&tipo=' . $tipo);
     exit;
 }
  

@@ -20,7 +20,7 @@ foreach ($todos as $doc) {
 }
  
 // Verifica se o usuário logado é admin (para mostrar o botão de gerenciar)
-$isAdmin = isset($_SESSION['usuario_id']) && ($_SESSION['perfil'] ?? '') === 'admin';
+$isAdmin = isset($_SESSION['usuario_id']) && in_array($_SESSION['perfil'] ?? '', ['admin', 'editor']);
 ?>
 <!doctype html>
 <html lang="pt-BR">
@@ -237,7 +237,7 @@ $isAdmin = isset($_SESSION['usuario_id']) && ($_SESSION['perfil'] ?? '') === 'ad
  
   <?php if ($isAdmin): ?>
   <div class="admin-bar">
-    <a href="admin/documentos.php">
+    <a href="admin/documento.php">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5
